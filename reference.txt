@@ -1,0 +1,26 @@
+Source: https://www.youtube.com/watch?v=g0BOrEzqNXM
+> Same as Beta-1
+
+github: https://github.com/MrSentinel137/tot-fiesta
+Exploring the convergence of Python, Streamlit, Langchain, the Tree of Thoughts (ToT) framework, 
+and the dynamic Gemini Model.
+
+Pre-requisite:
+- Create virtual environment: conda create -p venv python==3.10 (if using conda, not applicable)
+- Create virtual environment: python -m venv venv
+- Activate virtual environment: venv\Scripts\activate 
+    - until (green (venv) before prompt)
+- Get APIkey: from makersuite.google.com or https://aistudio.google.com/app/apikey 
+- Create: .env file and copy/paste the API key
+- Install dependencies: pip install -r requirements.txt
+
+To Run: 
+- streamlit run app.py
+
+To Git:
+- open Git Bash terminal: git init | Untracked status appear (green U)
+- create .gitignore > enter .env filename > save
+- to track all: git add .
+- to restore: git restore <filename>
+- to commit: git commit -m "<message>" or manual message: git commit -a
+- Note: do not add venv folder

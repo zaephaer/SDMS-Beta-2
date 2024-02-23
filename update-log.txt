@@ -1,0 +1,16 @@
+20/02/2024
+- About in Sidebar > move into st.expander
+- thinking spinner after click button
+- progress bar compliment thinking spinner
+- enhance prompt for better solution description
+- replace Light/Dark mode with Unicode
+- change dark mode secondary and third color 
+- move element selection into sidebar
+- replace element selection with st.multiselect
+
+22/02/2024
+- cleanup unwanted files
+- change st.text_input to st.text_area for bigger input space
+- change logo
+- change apps name
+- add 'Disclaimer' with smaller font and red color

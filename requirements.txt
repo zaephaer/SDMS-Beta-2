@@ -1,0 +1,6 @@
+langchain 
+google-generativeai 
+langchain-google-genai 
+python-dotenv 
+streamlit
+st_btn_select
