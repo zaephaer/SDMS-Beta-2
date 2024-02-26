@@ -21,11 +21,11 @@ genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
 
 template1 = """
 I have a problem for you to solve, the problem is {input}
-Provide {number} distinct solutions and I want you to take into consideration, factors such as {factors}
+Provide {number} distinct solutions and I want you to take into consideration, factors such as {factors} and the answers should be within {elements}
 """
 
 prompt1 = PromptTemplate(
-    input_variables=["input", "factors", "number"],
+    input_variables=["input", "factors", "number","elements"],
     template=template1
 )
 
@@ -100,7 +100,7 @@ chain4 = LLMChain(
 
 chain = SequentialChain(
     chains=[chain1, chain2, chain3, chain4],
-    input_variables=["input", "factors", "number"],
+    input_variables=["input", "factors", "number","elements"],
     output_variables=["result"]
 )
 
@@ -116,18 +116,16 @@ if "themes" not in ms:
                     "refreshed": True,
                     
                     "light": {"theme.base": "dark",
-                              "theme.backgroundColor": "black",
-                              "theme.primaryColor": "#660000",
-                              #"theme.primaryColor": "#c98bdb",
-                              "theme.secondaryBackgroundColor": "#444444",
-                              "theme.textColor": "white",
+                              "theme.backgroundColor": "#131314",
+                              "theme.primaryColor": "#474747",
+                              "theme.secondaryBackgroundColor": "#1e1f20",
                               "theme.textColor": "white",
                               "button_face": "🌙"},
 
                     "dark":  {"theme.base": "light",
                               "theme.backgroundColor": "white",
-                              "theme.primaryColor": "#50A88B",
-                              "theme.secondaryBackgroundColor": "#82E1D7",
+                              "theme.primaryColor": "#172d67",
+                              "theme.secondaryBackgroundColor": "#22ddd2",
                               "theme.textColor": "#0a1464",
                               "button_face": "☀️"},
                     }
@@ -156,46 +154,46 @@ if ms.themes["refreshed"] == False:
 #--------------------------------------------------------------------------------------
 # Sidebar
 # Create a container to center the image
-col1, col2, col3 = st.sidebar.columns([1, 1, 2])
+col1, col2, col3 = st.sidebar.columns([1, 1, 3])
 
 # Add the logo image within the centered column
-with col2: st.image("Cognimus Round.png", width=100)
+with col2: 
+    st.image("Cognimus Round.png", width=130)
 
-# Add an expander inside the sidebar
-#with st.sidebar.expander("**No. of Solutions**"):
-#    num = st.slider("How many distinct solutions?", 2, 5, step=1)
+# Add an expander for the entire sidebar
+with st.sidebar.expander("Selection Panel", expanded=True):  # Set expanded=True if you want the sidebar expanded by default
+
+    # About Cognimus AI
+    with st.sidebar.expander("**About Cognimus AI**"):
+        st.write("Cognimus AI is your premier strategic decision-making companion designed to elevate your organizational prowess to new heights. In the dynamic landscape of today's business world, informed decisions are the cornerstone of success, and Cognimus AI is here to empower you with the tools and insights you need to navigate with confidence.")
     
-# Add "About" section in the left sidebar
-#st.sidebar.header("About")
-#st.sidebar.markdown("DECISIO is your premier strategic decision-making companion designed to elevate your organizational prowess to new heights. In the dynamic landscape of today's business world, informed decisions are the cornerstone of success, and DECISIO is here to empower you with the tools and insights you need to navigate with confidence.")
-
-# Multiselect elements with default
-st.sidebar.subheader("Settings")
-elements = st.sidebar.multiselect(
-        "Select MAX 3 business elements:\n\n",
+    # Select business elements
+    elements = st.multiselect(
+        "Select a maximum of three (3) business elements:\n\n",
         [
             "Financial",
             "Resources",
             "Technology",
             "Ownership",
             "Data",
-            "Infra",
+            "Infrastructure",
             "Security",
             "Agility",
             "People",
             "Process",
         ],
-        key="elements",
-        default=["Financial", "Resources", "Technology"],
+        key="elements",  # Set a unique key for the multiselect widget
+        #default=["Financial", "Resources", "Technology"],  # Set default selected elements
     )
 
-# Select distinct solution slider
-#st.sidebar.subheader("Distinct Solution")
-num = st.sidebar.slider("Number of distinct solution?", 2, 5, step=1)
+    # Select distinct solution slider
+    num = st.slider("Number of distinct solutions?", 1, 5, step=1)
 
-# About with expander
-with st.sidebar.expander("**About Cognimus AI**"):
-    st.write("Cognimus AI is your premier strategic decision-making companion designed to elevate your organizational prowess to new heights. In the dynamic landscape of today's business world, informed decisions are the cornerstone of success, and DECISIO is here to empower you with the tools and insights you need to navigate with confidence.")
+# Additional information at the bottom, bottom-centered and smaller font size
+additional_info = "<p style='font-size:smaller; text-align:center;'>This is a beta version of Cognimus AI</p>"
+st.sidebar.markdown(additional_info, unsafe_allow_html=True)
+
+
 #--------------------------------------------------------------------------------------
 # Main
 st.header("Strategic Decision Making - Beta")
@@ -232,9 +230,20 @@ def simulate_long_running_task_progbar():
 
 if st.button("THINK", use_container_width=True):
     with st.spinner("Thinking..."):
-        res = chain({"input" : inp, "factors" : factors, "number" : num})
+        # Include selected elements in the input dictionary
+        input_data = {"input": inp, "factors": factors, "number": num, "elements": elements}
+        # Call the chain function with the updated input
+        res = chain(input_data)
         progress_bar = st.progress(0)
         simulate_long_running_task_progbar()
         st.write("")
         st.subheader(":red[Response]")
         st.markdown(res['result'])
+
+hide_streamlit_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
