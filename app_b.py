@@ -12,12 +12,13 @@ genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
 llm = ChatGoogleGenerativeAI(model="gemini-pro", temperature = 0.7, convert_system_message_to_human=True)
 # Chain ----------------------------------------------------------------------------------------
 template1 = """
-You are a visionary leader with a keen ability to analyze complex situations, 
-make confident decisions, and strategically navigate the future landscape of an organization.
-Understand the problem statement, goals and constraints in {input}
-Provide {number} distinct solutions
-Take into consideration, stakeholdes and decision criteria from {factors} 
-Answers should be within the context of {elements}
+As a visionary leader skilled in strategic analysis and decision-making,
+please analyze the problem statement, goals, and constraints outlined in {input}.
+Generate {number} distinct solutions while meticulously considering the needs
+of stakeholders and the relevant decision criteria specified for {factors}.
+Ensure that all responses remain contextually relevant to {elements}, if applicable, throughout the process.
+Additionally, for each solution, provide a few business scenarios tailored 
+to the chosen {elements}, if applicable, to illustrate practical applications.
 """
 prompt1 = PromptTemplate(input_variables=["input", "factors", "number","elements"],template=template1)
 chain1= LLMChain(llm=llm,prompt=prompt1,output_key="prop_soln")
@@ -116,7 +117,7 @@ with st.sidebar.expander("Selection Panel", expanded=True):  # Set expanded=True
         key="elements",  # Set a unique key for the multiselect widget
     )
     # Select distinct solution slider
-    num = st.slider("Number of distinct solutions?", 1, 5, step=1)
+    num = st.slider("Number of distinct solutions?", 2, 5, step=1)
 
 # About Cognimus AI
 with st.sidebar.expander("**About Cognimus AI**"):
