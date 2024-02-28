@@ -127,12 +127,6 @@ with st.sidebar.expander("Selection Panel", expanded=True):  # Set expanded=True
     # Select distinct solution slider
     num = st.slider("Number of distinct solutions?", 2, 5, step=1)
 
-    # Temperature slider (temporary for testing)
-'''with st.sidebar.expander("Temperature"):
-    ai_temp = st.slider('AI Temperature', 0.0, 1.0, 0.5, 0.1)
-    temperature_info = "Higher temperature boosts creativity but may lead to off-context output. Lower temperature ensures focused and predictable AI responses."
-    st.markdown(temperature_info)'''
-
 # About Cognimus AI
 with st.sidebar.expander("**About Cognimus AI**"):
     st.write("Cognimus AI is your premier strategic decision-making companion designed to elevate your organizational prowess to new heights. In the dynamic landscape of today's business world, informed decisions are the cornerstone of success, and Cognimus AI is here to empower you with the tools and insights you need to navigate with confidence.")
