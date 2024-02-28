@@ -4,3 +4,5 @@ langchain-google-genai
 python-dotenv 
 streamlit
 st_btn_select
+langchain-openai
+langchain-community
