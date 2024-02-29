@@ -117,7 +117,7 @@ with st.sidebar.expander("Selection Panel", expanded=True):  # Set expanded=True
         key="elements",  # Set a unique key for the multiselect widget
     )
     # Select distinct solution slider
-    num = st.slider("Number of distinct solutions?", 2, 5, step=1)
+    num = st.slider("Number of distinct solutions?", 3, 5, step=1)
 
 # About Cognimus AI
 with st.sidebar.expander("**About Cognimus AI**"):
